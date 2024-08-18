@@ -1,0 +1,30 @@
+1. Crear un Entorno Virtual:
+    - Abrir una terminal en VS Code y escribir las siguientes líneas.
+    python -m venv venv
+    MAC :       source venv/bin/activate  
+    En Windows: venv\Scripts\activate
+
+2. Instalar las Dependencias - Librerías - Bibliotecas.
+    pip install requeriments.txt
+
+4. Cargar el Modelo de Predicción "modelo_enferm.h5"
+    Lo puedes descargar de la siguiente ruta:
+    https://drive.google.com/file/d/1Nlt_ZrLzjpu86mWh-QBSko2Ab7-TKfez/view?usp=share_link
+    - No olvides guardarlo en la carpeta raíz donde esta el proyecto
+        "UAO-Enfermedades"
+
+5. Ejeutar el programa.
+    - Ejecutar el comando 'python predi.py', desde la terminal de VS Code 
+
+6. Empleo del programa.
+    - Para iniciar, debe ingresar su nombre y cédula antes de cargar la imagen 
+    NOTA. "Si no ingresa los datos, el sistema no le permitirá continuar".
+    - Tras completar los datos, dar clic en "Subir Imagen", buscar la imagen, dar clic en abrir,
+    - La App muestra la imagen seleccionada, emite un diagnóstico y a su vez, guarda los datos en un archivo .csv llamado "diagnosticos.csv"
+    NOTA: "El archivo puede validarse en la carpeta raíz del proyecto"
+    - Si desea, luego de analizar los resultados, puede dar clic el "limpiar" para
+    borrar los datos de la pantalla y predecir otra radiografía.
+    - Si desea revisar el historial, de clic en "Ver Historial", de lo contrario de clic en "Cerrar"
+    NOTA. "La ventana "Historial de diagnósticos" mostrará un consolidado de lo que se a consultado, mostrando
+     Fecha, Nombre, Cédula y Diagnóstico".
+    - Para finalizar, de clic en el botón "Cerrar"
