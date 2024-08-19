@@ -7,24 +7,21 @@
 2. Instalar las Dependencias - Librerías - Bibliotecas.
     pip install requeriments.txt
 
-4. Cargar el Modelo de Predicción "modelo_enferm.h5"
+4. Cargar el archivo faltante del entorno virtual:
     Lo puedes descargar de la siguiente ruta:
-    https://drive.google.com/file/d/1Nlt_ZrLzjpu86mWh-QBSko2Ab7-TKfez/view?usp=share_link
-    - No olvides guardarlo en la carpeta raíz donde esta el proyecto
-        "UAO-Enfermedades"
+    https://drive.google.com/file/d/1IQKHD8kPL1DZPXlTrqFjoMVzQzxChWAA/view?usp=sharing
+    - Debes guardarlo en la siguiente ruta 
+        "UAO-Enfermedades\venv\lib\python3.12\site-packages\tensorflow"
 
 5. Ejeutar el programa.
-    - Ejecutar el comando 'python predi.py', desde la terminal de VS Code 
+    - Ejecutar el comando 'streamlit run predi.py', desde la terminal de VS Code 
 
 6. Empleo del programa.
     - Para iniciar, debe ingresar su nombre y cédula antes de cargar la imagen 
-    NOTA. "Si no ingresa los datos, el sistema no le permitirá continuar".
     - Tras completar los datos, dar clic en "Subir Imagen", buscar la imagen, dar clic en abrir,
     - La App muestra la imagen seleccionada, emite un diagnóstico y a su vez, guarda los datos en un archivo .csv llamado "diagnosticos.csv"
     NOTA: "El archivo puede validarse en la carpeta raíz del proyecto"
-    - Si desea, luego de analizar los resultados, puede dar clic el "limpiar" para
+    - Si desea, luego de analizar los resultados, puede dar 2 veces clic el "limpiar" para
     borrar los datos de la pantalla y predecir otra radiografía.
-    - Si desea revisar el historial, de clic en "Ver Historial", de lo contrario de clic en "Cerrar"
-    NOTA. "La ventana "Historial de diagnósticos" mostrará un consolidado de lo que se a consultado, mostrando
+    - Si desea revisar el historial, de clic en "Ver Historial" y visualizara una tabla con los siguientes campos:
      Fecha, Nombre, Cédula y Diagnóstico".
-    - Para finalizar, de clic en el botón "Cerrar"

@@ -1,10 +1,9 @@
-import tkinter as tk
-from tkinter import filedialog
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-from PIL import Image, ImageTk
-import tkinter.ttk as ttk
+from PIL import Image
 import numpy as np
+import streamlit as st
+from urllib.parse import urlparse, urlunparse
 from borrar import clear_window
 from guardar import save_diagnosis
 from historial import show_history
@@ -13,69 +12,48 @@ from historial import show_history
 model = load_model('modelo_enferm.h5')
 categories = ['Quiste', 'Cálculo', 'Tumor', 'Normalidad']
 
-def load_image():
-    if not name_entry.get() or not id_entry.get():
-        tk.messagebox.showwarning("Advertencia", "Por favor, ingrese su nombre y cédula antes de cargar la imagen.")
-        return
+st.title('Predicción de Enfermedades del Riñón a partir de Radiografías')
+
+# Inicializar el estado de la sesión
+if 'uploaded_file' not in st.session_state:
+    st.session_state['uploaded_file'] = None
+if 'result' not in st.session_state:
+    st.session_state['result'] = ''
+if 'name' not in st.session_state:
+    st.session_state['name'] = ''
+if 'id_number' not in st.session_state:
+    st.session_state['id_number'] = ''
     
-    file_path = filedialog.askopenfilename()
-    img = Image.open(file_path).convert('L')
+# Entrada de datos del usuario
+st.session_state['name'] = st.text_input('Nombre:', st.session_state['name'])
+st.session_state['id_number'] = st.text_input('Cédula:', st.session_state['id_number'])   
+
+uploaded_file = st.file_uploader("Elige una imagen...", type=["jpg", "jpeg", "png"])
+
+img_container = st.empty()
+result_container = st.empty()
+
+if uploaded_file:
+    st.session_state['uploaded_file'] = uploaded_file
+    img = Image.open(uploaded_file).convert('L')
     img = img.resize((128, 128), Image.LANCZOS)
-    img_tk = ImageTk.PhotoImage(img)
-    img_label.config(image=img_tk)
-    img_label.image = img_tk
+    img_container.image(img, caption='Radiografía subida', use_column_width=True)
 
     img_array = image.img_to_array(img) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
     prediction = model.predict(img_array)
-    result = categories[np.argmax(prediction)]
-    result_label.config(text=f'Diagnóstico: Paciente con {result}')
+    st.session_state['result'] = categories[np.argmax(prediction)]
+    result_container.write(f'Diagnóstico: Paciente con {st.session_state["result"]}')
     # Guardar el diagnóstico con el nombre y la cédula
-    save_diagnosis(result, name_entry.get(), id_entry.get())
-
-root = tk.Tk()
-root.title('Predicción de Enfermedades')
-root.geometry('500x500')
-
-style = ttk.Style()
-style.configure('TButton', font=('Helvetica', 12))
-
-# Frame para los datos del usuario
-user_frame = ttk.Frame(root, padding="10")
-user_frame.pack(fill='x')
-
-ttk.Label(user_frame, text='Nombre:').pack(anchor='w')
-name_entry = tk.Entry(user_frame)
-name_entry.pack(fill='x', pady=5)
-
-ttk.Label(user_frame, text='Cédula:').pack(anchor='w')
-id_entry = tk.Entry(user_frame)
-id_entry.pack(fill='x', pady=5)
-
-# Frame para la imagen y los botones
-image_frame = ttk.Frame(root, padding="10")
-image_frame.pack(fill='x')
-
-img_label = ttk.Label(image_frame)
-img_label.pack(pady=10)
-
-load_button = ttk.Button(image_frame, text='Subir Imagen', command=load_image)
-load_button.pack(pady=5)
-
-clear_button = ttk.Button(image_frame, text='Limpiar', command=lambda: clear_window(img_label, result_label, name_entry, id_entry))
-clear_button.pack(pady=5)
-
-result_label = ttk.Label(image_frame, text='Diagnóstico:')
-result_label.pack(pady=10)
-
-# Frame para los botones de historial y cerrar
-action_frame = ttk.Frame(root, padding="10")
-action_frame.pack(fill='x')
-
-history_button = ttk.Button(action_frame, text='Ver Historial', command=lambda: show_history(root))
-history_button.pack(side='left', padx=5)
-
-close_button = ttk.Button(action_frame, text='Cerrar', command=root.destroy)
-close_button.pack(side='right', padx=5)
+    save_diagnosis(st.session_state['result'], st.session_state['name'], st.session_state['id_number'])    
     
-root.mainloop()
+# Botón para limpiar (puedes implementar la función clear_window)
+if st.button('Limpiar'):
+    clear_window()
+    img_container.empty()
+    result_container.empty()
+
+# Botón para ver historial (puedes implementar la función show_history)
+if st.button('Ver Historial'):
+    show_history()
+    st.write("Historial Mostrado con Éxito")
