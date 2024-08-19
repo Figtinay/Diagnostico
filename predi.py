@@ -7,6 +7,7 @@ from urllib.parse import urlparse, urlunparse
 from borrar import clear_window
 from guardar import save_diagnosis
 from historial import show_history
+import pandas as pd
 
 # Cargar el modelo guardado
 model = load_model('modelo_enferm.h5')
