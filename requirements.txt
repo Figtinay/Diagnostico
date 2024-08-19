@@ -1,4 +1,5 @@
-python
+python == 3.12
+pip == 24.2
 tensorflow 
 keras 
 numpy 
