@@ -27,3 +27,13 @@ NOTA: SI SE DESEA CORRER LA APP LOCAL, SEGUIR LOS PASOS DELL 1 AL 6.
     borrar los datos de la pantalla y predecir otra radiografía.
     - Si desea revisar el historial, de clic en "Ver Historial" y visualizara una tabla con los siguientes campos:
      Fecha, Nombre, Cédula y Diagnóstico".
+
+7. PRUEBAS UNITARIAS
+    7.1 Instalar pytest Si no se tiene instalado
+        pip install pytest
+    
+    7.2  Ejecutar las pruebas.
+        7.2.1 Abrir la terminal en VS Code y ejecutar:
+        
+        pytest test_limpiar.py
+        pytest test_historial.py
