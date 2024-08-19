@@ -1,3 +1,5 @@
+NOTA: SI SE DESEA CORRER LA APP LOCAL, SEGUIR LOS PASOS DELL 1 AL 6.
+
 1. Crear un Entorno Virtual:
     - Abrir una terminal en VS Code y escribir las siguientes líneas.
     python -m venv venv
